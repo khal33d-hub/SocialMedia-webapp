@@ -1,0 +1,29 @@
+{% extends "posts/post_base.html" %}
+
+{% block post_content %}
+<!-- <div class="col-md-8"> -->
+<a class="btn btn-primary btn-comment" href="{% url 'posts:add_comment_to_post' pk=post.pk %}">Add comment</a>
+
+<div class="container">
+
+    {% include "posts/_post.html" %}
+
+    {% for comment in post.comments.all %}
+    <br>
+        {% if user.is_authenticated %}
+
+            {{ comment.created_date }}
+
+                <a class="btn btn-primary" href="{% url 'posts:comment_remove' pk=comment.pk %}"><span class="fa fa-remove"></span></a>
+
+            <p>{{ comment.text|safe|linebreaks }}</p>
+            <p>Posted by: <strong>{{ comment.author }}</strong></p>
+
+        {% endif %}
+    {% empty %}
+        <p>No comments posted.</p>
+    {% endfor %}
+</div>
+
+<!-- </div> -->
+{% endblock %}
