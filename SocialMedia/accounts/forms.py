@@ -13,3 +13,8 @@ class UserCreateForm(UserCreationForm):
         self.fields["email"].label = "Email address"
         self.fields["password1"].label = "password"
         self.fields["password2"].label = "password"
+
+class UserProfileInfoForm(forms.ModelForm):
+    class Meta():
+        model = User
+        fields = ('profile_pic')
